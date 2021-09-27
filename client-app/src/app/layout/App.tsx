@@ -21,7 +21,7 @@ function App() {
 
   const location = useLocation();
   const {commonStore, userStore} = useStore();
-
+  
   useEffect(() => 
   {
     if(commonStore.token)
