@@ -16,6 +16,9 @@ export default observer(function ProfileCard({profile}: Props){
                 <Card.Header>
                     {profile.displayName}
                 </Card.Header>
+                <Card.Description>
+                    {profile.bio && profile.bio?.length>40 ? profile.bio?.slice(0,37)+'...' : profile.bio}
+                </Card.Description>
                 <Card.Description extra>
                     <Icon name='user' />
                     20 followers
