@@ -1,4 +1,5 @@
 using System.Text;
+using System.Threading.Tasks;
 using API.Services;
 using Domain;
 using Infrastructure.Security;
@@ -35,6 +36,23 @@ namespace API.Extensions
                         IssuerSigningKey = key,
                         ValidateIssuer = false,
                         ValidateAudience = false
+                    };
+                    opt.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context => 
+                        {
+                            // getting the token from query string 
+                            var accessToken=context.Request.Query["access_token"];
+                            var path = context.HttpContext.Request.Path;
+                            // if the path matches the end point (chat)
+                            if(!string.IsNullOrEmpty(accessToken) && (path.StartsWithSegments("/chat")))
+                            {
+                                // adding token to context
+                                // authenticates to signalr hub
+                                context.Token=accessToken;
+                            }
+                            return Task.CompletedTask;
+                        }
                     };
                 });
 

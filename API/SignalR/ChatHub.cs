@@ -1,0 +1,43 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Application.Comments;
+using MediatR;
+using Microsoft.AspNetCore.SignalR;
+
+namespace API.SignalR
+{
+    public class ChatHub : Hub
+    {
+        private readonly IMediator _mediator;
+
+        public ChatHub(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
+        public async Task SendComment(Create.Command command)
+        {
+            var comment = await _mediator.Send(command);
+            
+            // any time that a comment is sent to that group
+            // then they are going to receive that new comment based on this method
+            await Clients.Group(command.ActivityId.ToString())
+                .SendAsync("ReceiveComment", comment.Value);
+        }
+
+        public override async Task OnConnectedAsync()
+        {
+            var httpContext = Context.GetHttpContext();
+
+            // whenever a client connects, join them to a group with the name of the activity id
+            var activityId = httpContext.Request.Query["activityId"];
+            await Groups.AddToGroupAsync(Context.ConnectionId, activityId);
+
+            // this row send list of comments from our database to the caller
+            var result = await _mediator.Send(new List.Query{ActivityId=Guid.Parse(activityId)});
+            await Clients.Caller.SendAsync("LoadComments", result.Value);
+        }
+    }
+}

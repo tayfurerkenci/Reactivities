@@ -18,5 +18,6 @@ namespace Domain
         // when we creating activity we'll get error
         // activity class require attendee object because of that we initialize that object by default 
         public ICollection<ActivityAttendee> Attendees {get;set;} = new List<ActivityAttendee>(); 
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
     }
 }

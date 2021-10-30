@@ -6,15 +6,14 @@ import * as Yup from 'yup';
 import MyTextInput from '../../app/common/form/MyTextInput';
 import { Button } from 'semantic-ui-react';
 import MyTextArea from '../../app/common/form/MyTextArea';
-import { isValid } from 'date-fns';
 
 interface Props{
     setEditMode: (editMode: boolean) => void;
 }
 
 export default observer(function ProfileEditForm({setEditMode}:Props){
-    const { profileStore } = useStore();
-    const { profile, updateProfile } = profileStore;
+    const { profileStore: {profile, updateProfile} } = useStore();
+    //const { profile, updateProfile } = profileStore;
     
     return (
         <Formik 
@@ -42,9 +41,7 @@ export default observer(function ProfileEditForm({setEditMode}:Props){
                         content='Update profile'
                         floated='right'
                         disabled={!isValid || !dirty}
-                    >
-
-                    </Button>
+                    />
                 </Form>
             }}
 
