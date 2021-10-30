@@ -28,7 +28,7 @@ export default observer(function ProfileEditForm({setEditMode}:Props){
             })}
 
         >
-            {({isSubmitting, isValid, dirty}) => {
+            {({isSubmitting, isValid, dirty}) => (
                 <Form className="ui form">
                     <MyTextInput placeholder='Display Name'
                         name='displayName' />
@@ -43,7 +43,7 @@ export default observer(function ProfileEditForm({setEditMode}:Props){
                         disabled={!isValid || !dirty}
                     />
                 </Form>
-            }}
+            )}
 
         </Formik>
     )
