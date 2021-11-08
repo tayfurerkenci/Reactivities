@@ -5,7 +5,6 @@ import { format } from 'date-fns';
 import { store } from "./store";
 import { Profile } from "../models/profile";
 import { Pagination, PagingParams } from "../models/pagination";
-import { thisExpression } from "@babel/types";
 // import { fi, th } from "date-fns/locale";
 
 export default class activityStore {
