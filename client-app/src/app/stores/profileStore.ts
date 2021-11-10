@@ -4,6 +4,7 @@ import { Photo, Profile, UserActivity } from "../models/profile";
 import { store } from "./store";
 
 export default class ProfileStore{
+    currentUserProfile: Profile | null = null;
     profile: Profile | null=null;
     loadingProfile=false;
     uploading=false;

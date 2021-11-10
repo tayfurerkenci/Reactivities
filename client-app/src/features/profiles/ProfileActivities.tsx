@@ -20,13 +20,16 @@ export default observer(function ProfileActivities() {
         loadingActivities,
         userActivities
     } = profileStore;
+
     useEffect(() => {
         loadUserActivities(profile!.username);
     }, [loadUserActivities, profile]);
+
     const handleTabChange = (e: SyntheticEvent, data: TabProps) => {
         loadUserActivities(profile!.username, panes[data.activeIndex as
             number].pane.key);
     };
+    
     return (
         <Tab.Pane loading={loadingActivities}>
             <Grid>
@@ -49,8 +52,7 @@ export default observer(function ProfileActivities() {
                                 key={activity.id}
                             >
                                 <Image
-                                    src={`/assets/categoryImages/$
-   {activity.category}.jpg`}
+                                    src={`/assets/categoryImages/${activity.category}.jpg`}
                                     style={{
                                         minHeight: 100, objectFit:
                                             'cover'
