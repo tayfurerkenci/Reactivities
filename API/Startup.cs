@@ -67,13 +67,19 @@ namespace API
                 // force https
                 .BlockAllMixedContent()
                 // we're gonna ok if generated from our domain
-                .StyleSources(s => s.Self().CustomSources("https://fonts.googleapis.com"))
+                .StyleSources(s => s.Self().CustomSources("https://fonts.googleapis.com",
+                "sha256-yChqzBduCCi4o4xdbXRXh4U/t1rP4UUUMJt+rB+ylUI="))
                 .FontSources(s => s.Self().CustomSources("https://fonts.gstatic.com", "data:"))
                 .FormActions(s => s.Self())
                 .FrameAncestors(s => s.Self())
-                .ImageSources(s => s.Self().CustomSources("https://res.cloudinary.com"))
-                .ScriptSources(s => s.Self().CustomSources("sha256-RZa9FeBeiqCM2+5jcE1mUKMkRZ69RNcOg/OAT6NWJ7Y="))
-            );
+                .ImageSources(s => s.Self().CustomSources("https://res.cloudinary.com","https://www.facebook.com"))
+                .ScriptSources(s => s.Self()
+                    .CustomSources(
+                        "sha256-RZa9FeBeiqCM2+5jcE1mUKMkRZ69RNcOg/OAT6NWJ7Y=",
+                        "sha256-rTuNa9UeAQ5B9gj9rLEY9243ZbVE6Sl++AiPas66JE4=",
+                        "https://connect.facebook.net"
+                    ))
+                );
 
             if (env.IsDevelopment())
             {
