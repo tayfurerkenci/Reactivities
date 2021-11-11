@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using System.Threading.Tasks;
 using API.Services;
@@ -35,7 +36,11 @@ namespace API.Extensions
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = key,
                         ValidateIssuer = false,
-                        ValidateAudience = false
+                        ValidateAudience = false,
+                        ValidateLifetime = true,
+                        // token methods are valid until 5 min after the expiration
+                        // prevented that behaviour at below
+                        ClockSkew = TimeSpan.Zero
                     };
                     opt.Events = new JwtBearerEvents
                     {

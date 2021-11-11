@@ -73,6 +73,7 @@ namespace API.Extensions
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials() //required for connection to signalr hub
+                        .WithExposedHeaders("WWW-Authenticate", "Pagination")
                         .WithOrigins("http://localhost:3000");
                 });
             });
